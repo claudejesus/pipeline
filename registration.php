@@ -1,24 +1,25 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
+    // Registration logic
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
     $gender = $_POST['gender'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     // Database connection (update with actual credentials)
-    $conn = new mysqli("localhost", "root", "", "your_database");
+    $conn = new mysqli("localhost", "root", "", "group4_shareride_db");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "INSERT INTO users (first_name, last_name, gender, email, password) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO tbl_users (user_firstname, user_lastname, user_gender, user_email, user_password) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssss", $firstName, $lastName, $gender, $email, $password);
 
     if ($stmt->execute()) {
-        echo "Registration successful!";
+        echo "Registration successful! You can now log in.";
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Register</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 0;
         }
 
-        .registration-container {
+        .register-container {
             background: white;
             padding: 20px;
             border-radius: 10px;
@@ -72,8 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 5px;
         }
 
-        .register-btn {
-            background: #28a745;
+        .btn {
+            background: #007bff;
             color: white;
             border: none;
             padding: 10px;
@@ -82,13 +83,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             cursor: pointer;
         }
 
-        .register-btn:hover {
-            background: #218838;
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .link a {
+            color: #007bff;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="registration-container">
+    <div class="register-container">
         <h2>Register</h2>
         <form action="" method="post">
             <div class="input-group">
@@ -115,8 +126,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="register-btn">Register</button>
+            <button type="submit" name="register" class="btn">Register</button>
         </form>
+        <div class="link">
+            Already have an account? <a href="login.php">Login here</a>
+        </div>
     </div>
 </body>
 </html>

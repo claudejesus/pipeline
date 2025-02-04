@@ -1,41 +1,4 @@
-<?php
-session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Database connection (update with actual credentials)
-    $conn = new mysqli("localhost", "root", "", "your_database");
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $sql = "SELECT id, first_name, password FROM users WHERE email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result($id, $firstName, $hashedPassword);
-    
-    if ($stmt->num_rows > 0) {
-        $stmt->fetch();
-        if (password_verify($password, $hashedPassword)) {
-            $_SESSION['user_id'] = $id;
-            $_SESSION['first_name'] = $firstName;
-            echo "Login successful! Welcome, " . htmlspecialchars($firstName) . "!";
-        } else {
-            echo "Invalid password.";
-        }
-    } else {
-        echo "No user found with this email.";
-    }
-
-    $stmt->close();
-    $conn->close();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 5px;
         }
 
-        .login-btn {
+        .btn {
             background: #007bff;
             color: white;
             border: none;
@@ -91,15 +54,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             cursor: pointer;
         }
 
-        .login-btn:hover {
+        .btn:hover {
             background: #0056b3;
+        }
+
+        .link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .link a {
+            color: #007bff;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form action="" method="post">
+        <form action="home.php" method="post">
             <div class="input-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
@@ -108,8 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="login-btn">Login</button>
+            <button type="submit" name="login" class="btn">Login</button>
         </form>
+        <div class="link">
+            Don't have an account? <a href="registration.php">Register here</a>
+        </div>
     </div>
 </body>
 </html>

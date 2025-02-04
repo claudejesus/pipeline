@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  yourgroup-php:
+  yourgroup4-php:
     image: php:8.2.12-apache
-    container_name: yourgroup-php
+    container_name: yourgroup4-php
     volumes:
-      - "C:/xampp/htdocs/test_git_docker:/var/www/html"
+      - "C:/xampphtdocs/group4:/var/www/html"
     ports:
     - "8085:80"

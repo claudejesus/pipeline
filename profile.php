@@ -88,7 +88,7 @@ $conn->close();
         <p><strong>Last Name:</strong> <?php echo htmlspecialchars($lastName); ?></p>
         <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
         <p><strong>Gender:</strong> <?php echo htmlspecialchars($gender); ?></p>
-        <a href="dashboard.php" class="btn">Back to Dashboard</a>
+        <a href="home.php" class="btn">Back to home</a>
     </div>
 </body>
 </html>

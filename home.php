@@ -36,15 +36,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     $stmt->close();
     $conn->close();
 }
-?>
 
+// Check if the user is logged in, and if not, redirect to the login page
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$firstName = $_SESSION['first_name']; // Get the first name from the session
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>home</title>
     <style>
         body {
             font-family: Arial, sans-serif;

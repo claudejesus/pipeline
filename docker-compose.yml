@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  yourgroup-php:
+    image: php:8.2.12-apache
+    container_name: yourgroup-php
+    volumes:
+      - "C:/xampp/htdocs/test_git_docker:/var/www/html"
+    ports:
+    - "8085:80"

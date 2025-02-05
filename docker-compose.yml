@@ -5,6 +5,6 @@ services:
     image: php:8.2.12-apache
     container_name: yourgroup4-php
     volumes:
-      - "C:/xampphtdocs/group4:/var/www/html"
+      - "C:/xampp/htdocs/group4/src:/var/www/html"
     ports:
-    - "8085:80"
+    - "8082:80"

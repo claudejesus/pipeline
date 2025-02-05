@@ -2,10 +2,10 @@
 FROM nginx:latest
 
 # Set the working directory (optional)
-WORKDIR /usr/share/nginx/html
+WORKDIR /usr/share/nginx/php
 
 # Copy application files into the container
-COPY index.html /usr/share/nginx/html/index.html
+COPY index.php C:\xampp\htdocs\group4\src
 
 # Expose a port for the container
 EXPOSE 80

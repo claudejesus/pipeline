@@ -5,7 +5,7 @@ pipeline {
         stage('Hello') {  // First stage - Hello
             steps {
                 echo 'Hello World'  // Outputs "Hello World"
-            }
+            
         }
         
         stage('Build') {  // Second stage - Build

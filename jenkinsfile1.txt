@@ -1,0 +1,26 @@
+pipeline {
+    agent any  // Runs the pipeline on any available agent
+
+    stages {
+        stage('Hellogit') {  // First stage - Hello
+            steps {
+                echo 'Hello World'  // Outputs "Hello World"
+            }
+        }
+        stage('Buildgit') {  // Second stage - Build
+            steps {
+                echo 'Buildgit'  // Outputs "Build"
+            }
+        }
+        stage('Testgit') {  // Third stage - Test
+            steps {
+                echo 'Testgit'  // Outputs "Test"
+            }
+        }
+        stage('Deploygit') {  // Fourth stage - Deploy
+            steps {
+                echo 'Deploygit'  // Outputs "Deploy"
+            }
+        }
+    }
+}
